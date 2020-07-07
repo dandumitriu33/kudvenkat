@@ -34,32 +34,55 @@ namespace EmployeeManagement
                 app.UseDeveloperExceptionPage();
             }
 
+            #region middlwareExample
             //app.Use(async (context, next) =>
             //{
             //    await context.Response.WriteAsync("Hello World from first middleware");
             //    await next();
             //});
 
-            app.Use(async (context, next) =>
-            {
-                logger.LogInformation("MW1: Incoming Request");
-                await next();
-                logger.LogInformation("MW1: Outgoing Response");
-            });
+            //app.Use(async (context, next) =>
+            //{
+            //    logger.LogInformation("MW1: Incoming Request");
+            //    await next();
+            //    logger.LogInformation("MW1: Outgoing Response");
+            //});
 
-            app.Use(async (context, next) =>
-            {
-                logger.LogInformation("MW2: Incoming Request");
-                await next();
-                logger.LogInformation("MW2: Outgoing Response");
-            });
+            //app.Use(async (context, next) =>
+            //{
+            //    logger.LogInformation("MW2: Incoming Request");
+            //    await next();
+            //    logger.LogInformation("MW2: Outgoing Response");
+            //});
+
+            //app.Run(async (context) =>
+            //{
+            //    await context.Response.WriteAsync("MW3: Request handled and response produced");
+            //    logger.LogInformation("MW3: Request handled and response produced");
+            //});
+            #endregion middlewareExample
+
+            // order is obviously important as demonstrated earlier
+            //app.UseDefaultFiles(); // uses the default files like default.html landing page (can use default.htm, index.html, index.htm)
+
+            DefaultFilesOptions defaultFilesOptions = new DefaultFilesOptions();
+            defaultFilesOptions.DefaultFileNames.Clear();
+            defaultFilesOptions.DefaultFileNames.Add("foo.html");
+            //app.UseDefaultFiles(defaultFilesOptions);
+            //app.UseStaticFiles(); // serves static files in wwwroot folder
+
+            //app.UseFileServer(); // default files
+            FileServerOptions fileServerOptions = new FileServerOptions();
+            fileServerOptions.DefaultFilesOptions.DefaultFileNames.Clear();
+            fileServerOptions.DefaultFilesOptions.DefaultFileNames.Add("foo.html");
+            app.UseFileServer(fileServerOptions);
 
             app.Run(async (context) =>
             {
-                await context.Response.WriteAsync("MW3: Request handled and response produced");
-                logger.LogInformation("MW3: Request handled and response produced");
+                await context.Response.WriteAsync("Hello world");
             });
 
+            #region newASP.NETCore3.1defaultConfig
             //app.UseRouting();
 
             //app.UseEndpoints(endpoints =>
@@ -72,6 +95,7 @@ namespace EmployeeManagement
 
             //    });
             //});
+            #endregion newASP.NETCore3.1defaultConfig
         }
     }
 }
