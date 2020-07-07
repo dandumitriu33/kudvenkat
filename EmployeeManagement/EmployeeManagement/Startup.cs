@@ -29,21 +29,26 @@ namespace EmployeeManagement
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILogger<Startup> logger)
         {
-            if (env.IsDevelopment())
-            {
-                DeveloperExceptionPageOptions developerExceptionPageOptions = new DeveloperExceptionPageOptions()
-                {
-                    SourceCodeLineCount = 10
-                };
-
-                app.UseDeveloperExceptionPage(developerExceptionPageOptions);
-            }
-
-            //if (env.IsDevelopment())
+            #region custom Developer Exception Page
+            //if (env.IsDevelopment()) // can be changed to a custom environment if created and env.IsEnvironment("UAT") true
             //{
-            //    app.UseDeveloperExceptionPage();
+            //    DeveloperExceptionPageOptions developerExceptionPageOptions = new DeveloperExceptionPageOptions()
+            //    {
+            //        SourceCodeLineCount = 10
+            //    };
+            //    app.UseDeveloperExceptionPage(developerExceptionPageOptions);
             //}
+            //else if (env.IsStaging() || env.IsProduction() || env.IsEnvironment("UAT"))
+            //{
+            //    app.UseExceptionHandler("/Error");
+            //}
+            #endregion
 
+            if (env.IsDevelopment())  
+            {
+                app.UseDeveloperExceptionPage();
+            }
+            
             #region middlwareExample
             //app.Use(async (context, next) =>
             //{
@@ -89,12 +94,13 @@ namespace EmployeeManagement
             //app.UseFileServer(fileServerOptions);
             #endregion
 
-            app.UseFileServer();
+            //app.UseFileServer();
+            app.UseStaticFiles();
 
             app.Run(async (context) =>
             {
-                throw new Exception("Some error processing the request.");
-                await context.Response.WriteAsync("Hello world");
+                // throw new Exception("Some error processing the request."); // used to prove cutom dev page config
+                await context.Response.WriteAsync("Hosting Environment: " + env.EnvironmentName);
             });
 
             #region newASP.NETCore3.1defaultConfig
