@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using EmployeeManagement.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -27,6 +28,9 @@ namespace EmployeeManagement
         {
             //services.AddMvc(options => options.EnableEndpointRouting = false);  // for ASP.NET Core 3.1 if we use app.UseMvcWithDefaultRoute(); (the old 2.2 way)
             services.AddMvc();  // for ASP.NET Core 3.1 if we use app.UseEndpoints (the new way)
+            // services.AddMvcCore();  // is contained by AddMvc; this provides less options, the core ones - Json Formatter for example is not added 
+
+            services.AddSingleton<IEmployeeRepository, MockEmployeeRepository>();  // when someone asks for IEmployee - create an instance of , Mock and inject
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
