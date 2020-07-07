@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -24,6 +25,8 @@ namespace EmployeeManagement
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
+            //services.AddMvc(options => options.EnableEndpointRouting = false);  // for ASP.NET Core 3.1 if we use app.UseMvcWithDefaultRoute(); (the old 2.2 way)
+            services.AddMvc();  // for ASP.NET Core 3.1 if we use app.UseEndpoints (the new way)
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -97,10 +100,25 @@ namespace EmployeeManagement
             //app.UseFileServer();
             app.UseStaticFiles();
 
+            #region MVC Core 2.2 way
+            // MVC middleware - big oof from Core 2.2 - https://stackoverflow.com/questions/57684093/using-usemvc-to-configure-mvc-is-not-supported-while-using-endpoint-routing
+            //app.UseMvcWithDefaultRoute();
+            //app.UseMvc();
+            #endregion
+
+            #region MVC Core 3.1 way
+            app.UseRouting();
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapControllerRoute("default", "{controller=Home}/{action=Index}");
+            });
+            #endregion
+
+
             app.Run(async (context) =>
             {
                 // throw new Exception("Some error processing the request."); // used to prove cutom dev page config
-                await context.Response.WriteAsync("Hosting Environment: " + env.EnvironmentName);
+                await context.Response.WriteAsync("Hello Wrld");
             });
 
             #region newASP.NETCore3.1defaultConfig
