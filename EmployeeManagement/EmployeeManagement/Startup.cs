@@ -31,8 +31,18 @@ namespace EmployeeManagement
         {
             if (env.IsDevelopment())
             {
-                app.UseDeveloperExceptionPage();
+                DeveloperExceptionPageOptions developerExceptionPageOptions = new DeveloperExceptionPageOptions()
+                {
+                    SourceCodeLineCount = 10
+                };
+
+                app.UseDeveloperExceptionPage(developerExceptionPageOptions);
             }
+
+            //if (env.IsDevelopment())
+            //{
+            //    app.UseDeveloperExceptionPage();
+            //}
 
             #region middlwareExample
             //app.Use(async (context, next) =>
@@ -62,23 +72,28 @@ namespace EmployeeManagement
             //});
             #endregion middlewareExample
 
+            #region using static files
             // order is obviously important as demonstrated earlier
             //app.UseDefaultFiles(); // uses the default files like default.html landing page (can use default.htm, index.html, index.htm)
 
-            DefaultFilesOptions defaultFilesOptions = new DefaultFilesOptions();
-            defaultFilesOptions.DefaultFileNames.Clear();
-            defaultFilesOptions.DefaultFileNames.Add("foo.html");
-            //app.UseDefaultFiles(defaultFilesOptions);
-            //app.UseStaticFiles(); // serves static files in wwwroot folder
+            //DefaultFilesOptions defaultFilesOptions = new DefaultFilesOptions();
+            //defaultFilesOptions.DefaultFileNames.Clear();
+            //defaultFilesOptions.DefaultFileNames.Add("foo.html");
+            ////app.UseDefaultFiles(defaultFilesOptions);
+            ////app.UseStaticFiles(); // serves static files in wwwroot folder
 
-            //app.UseFileServer(); // default files
-            FileServerOptions fileServerOptions = new FileServerOptions();
-            fileServerOptions.DefaultFilesOptions.DefaultFileNames.Clear();
-            fileServerOptions.DefaultFilesOptions.DefaultFileNames.Add("foo.html");
-            app.UseFileServer(fileServerOptions);
+            ////app.UseFileServer(); // default files
+            //FileServerOptions fileServerOptions = new FileServerOptions();
+            //fileServerOptions.DefaultFilesOptions.DefaultFileNames.Clear();
+            //fileServerOptions.DefaultFilesOptions.DefaultFileNames.Add("foo.html");
+            //app.UseFileServer(fileServerOptions);
+            #endregion
+
+            app.UseFileServer();
 
             app.Run(async (context) =>
             {
+                throw new Exception("Some error processing the request.");
                 await context.Response.WriteAsync("Hello world");
             });
 
