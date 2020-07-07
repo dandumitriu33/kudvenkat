@@ -1,4 +1,6 @@
-﻿<html xmlns="http://www.w3.org/1999/xhtml">
+﻿@model EmployeeManagement.Models.Employee
+
+<html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <title></title>
 </head>
@@ -8,20 +10,32 @@
     <h3>@ViewBag.PageTitle</h3>
 
     @*@{
-        var employee = ViewData["Employee"] as EmployeeManagement.Models.Employee;
-    }*@
+            var employee = ViewData["Employee"] as EmployeeManagement.Models.Employee;
+        }*@
 
 
 
+    @*<div>
+            Name: @ViewBag.Employee.Name
+        </div>
+        <div>
+            Email: @ViewBag.Employee.Email
+        </div>
+        <div>
+            Department: @ViewBag.Employee.Department
+        </div>*@
+
+    <p>Using strongly typed view</p>
     <div>
-        Name: @ViewBag.Employee.Name
+        Name: @Model.Name
     </div>
     <div>
-        Email: @ViewBag.Employee.Email
+        Email: @Model.Email
     </div>
     <div>
-        Department: @ViewBag.Employee.Department
+        Department: @Model.Department
     </div>
+
 </body>
 </html>
 
