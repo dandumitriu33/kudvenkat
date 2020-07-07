@@ -1,4 +1,5 @@
 ﻿using EmployeeManagement.Models;
+using EmployeeManagement.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -22,12 +23,18 @@ namespace EmployeeManagement.Controllers
 
         public ViewResult Details()
         {
+            HomeDetailsViewModel homeDetailsViewModel = new HomeDetailsViewModel()
+            {
+                Employee = _employeeRepository.GetEmployee(1),
+                PageTitle = "Employee Details vm"
+            };
             Employee model = _employeeRepository.GetEmployee(1);
             //ViewData["Employee"] = model;
             //ViewData["PageTitle"] = "Employee Details";
             //ViewBag.Employee = model;
             ViewBag.PageTitle = "Employee Details";
-            return View(model);  // default use by NetCore - Views/*Controller Name w/ Controller*
+            //return View(model);  // default use by NetCore - Views/*Controller Name w/ Controller*
+            return View(homeDetailsViewModel);
         }
 
         #region custom folder structure and views if you don't want to use the default

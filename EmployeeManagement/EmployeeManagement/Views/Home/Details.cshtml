@@ -1,4 +1,5 @@
-﻿@model EmployeeManagement.Models.Employee
+﻿@model EmployeeManagement.ViewModels.HomeDetailsViewModel
+@*@model EmployeeManagement.Models.Employee*@
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -7,7 +8,9 @@
 <body>
     @*<h3>@ViewData["PageTitle"]</h3>*@
 
-    <h3>@ViewBag.PageTitle</h3>
+    @*<h3>@ViewBag.PageTitle</h3>*@
+
+    <h3>@Model.PageTitle</h3>
 
     @*@{
             var employee = ViewData["Employee"] as EmployeeManagement.Models.Employee;
@@ -25,16 +28,27 @@
             Department: @ViewBag.Employee.Department
         </div>*@
 
-    <p>Using strongly typed view</p>
-    <div>
-        Name: @Model.Name
-    </div>
-    <div>
-        Email: @Model.Email
-    </div>
-    <div>
-        Department: @Model.Department
-    </div>
+    @*<p>Using strongly typed view</p>
+        <div>
+            Name: @Model.Name
+        </div>
+        <div>
+            Email: @Model.Email
+        </div>
+        <div>
+            Department: @Model.Department
+        </div>*@
+    <p>Using strongly typed view with ViewModel to include page title w/ intellisense</p>
+        <div>
+            Name: @Model.Employee.Name
+        </div>
+        <div>
+            Email: @Model.Employee.Email
+        </div>
+        <div>
+            Department: @Model.Employee.Department
+        </div>
+
 
 </body>
 </html>
