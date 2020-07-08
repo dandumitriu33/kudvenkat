@@ -115,7 +115,7 @@ namespace EmployeeManagement
             app.UseRouting();
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapControllerRoute("default", "jim/{controller=Home}/{action=Index}/{id?}");
+                endpoints.MapControllerRoute("default", "{controller=Home}/{action=Index}/{id?}");
             });
             #endregion
 
