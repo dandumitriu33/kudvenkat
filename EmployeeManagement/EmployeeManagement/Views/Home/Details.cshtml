@@ -1,8 +1,10 @@
 ﻿@model EmployeeManagement.ViewModels.HomeDetailsViewModel
 @*@model EmployeeManagement.Models.Employee*@
 
+@*this may result in code cuplication - non DRY*@
+@*using _ViewStart.cshtml instead*@
 @{
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    //Layout = "~/Views/Shared/_Layout.cshtml";
     ViewBag.Title = "Employee Details";
 }
 
