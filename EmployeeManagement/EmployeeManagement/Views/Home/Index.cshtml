@@ -1,9 +1,8 @@
 ﻿@model IEnumerable<Employee>
-
 @*this may result in code cuplication - non DRY*@
 @*using _ViewStart.cshtml instead*@
 @{
-    // we can still use the manual page written Layout which will take priority hierarchically 
+    // we can still use the manual page written Layout which will take priority hierarchically
     //Layout = "~/Views/Shared/_Layout.cshtml"; // or another file
     // or Layout = null; for no layout at all
     ViewBag.Title = "Employee List";
@@ -11,7 +10,7 @@
 
 
 
-<table>
+@*<table>
     <thead>
         <tr>
             <th>ID</th>
@@ -29,8 +28,26 @@
             </tr>
         }
     </tbody>
-</table>
+</table>*@
+
+<div class="card-deck">
+    @foreach (var employee in Model)
+    {
+        <div class="card-deck m-3" style="width: 20rem;">
+            <div class="card-header">
+                <h3>@employee.Name</h3>
+            </div>
+            <img class="card-img-top" src="~/images/noimage.jpg" />
+            <div class="card-footer text center">
+                <a href="#" class="btn btn-primary">View</a>
+                <a href="#" class="btn btn-primary">Edit</a>
+                <a href="#" class="btn btn-danger">Delete</a>
+            </div>
+        </div>
+    }
+</div>
 
 @section Scripts {
     <script src="~/js/CustomScript.js"></script>
+    
 }
