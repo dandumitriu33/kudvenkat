@@ -1,10 +1,10 @@
-﻿@model IEnumerable<EmployeeManagement.Models.Employee>
+﻿@model IEnumerable<Employee>
 
 @*this may result in code cuplication - non DRY*@
 @*using _ViewStart.cshtml instead*@
 @{
     // we can still use the manual page written Layout which will take priority hierarchically 
-    //Layout = "~/Views/Shared/_Layout.cshtml";
+    //Layout = "~/Views/Shared/_Layout.cshtml"; // or another file
     // or Layout = null; for no layout at all
     ViewBag.Title = "Employee List";
 }
