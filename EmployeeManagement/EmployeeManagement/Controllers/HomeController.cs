@@ -85,5 +85,10 @@ namespace EmployeeManagement.Controllers
         //}
         #endregion
 
+        public ViewResult Create()
+        {
+            return View();
+        }
+
     }
 }
