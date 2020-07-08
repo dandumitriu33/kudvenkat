@@ -115,7 +115,7 @@ namespace EmployeeManagement
             app.UseRouting();
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapControllerRoute("default", "{controller=Home}/{action=Index}/{id?}");
+                endpoints.MapControllerRoute("default", "jim/{controller=Home}/{action=Index}/{id?}");
             });
             #endregion
 
@@ -123,7 +123,7 @@ namespace EmployeeManagement
             app.Run(async (context) =>
             {
                 // throw new Exception("Some error processing the request."); // used to prove cutom dev page config
-                await context.Response.WriteAsync("Last middleware Hello Wrld");
+                await context.Response.WriteAsync("Last middleware Hello Wrld aka no mid caught it 404");
             });
 
             #region newASP.NETCore3.1defaultConfig
