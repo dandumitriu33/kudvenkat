@@ -8,29 +8,44 @@ using System.Threading.Tasks;
 
 namespace EmployeeManagement.Controllers
 {
+    //[Route("Home")]
+    //[Route("[controller]/[action]")]
     public class HomeController : Controller
     {
+        
         private readonly IEmployeeRepository _employeeRepository;
-
+        
         public HomeController(IEmployeeRepository employeeRepository)
         {
             _employeeRepository = employeeRepository;
         }
+        //[Route("")]
+        //[Route("~/")]
+        //[Route("/home")]
+        //[Route("/home/index")]
+        //[Route("index")]
+        //[Route("[action]")]
+        //[Route("/baba")]  // - this becomes home/baba if Route("Home") is set on class
         public ViewResult Index()
         {
             var model = _employeeRepository.GetAllEmployees();
             return View(model);
         }
 
-        public ViewResult Details(int id)
+        //[Route("home/details/{id?}")]
+        //[Route("details/{id?}")]
+        //[Route("[action]/{id?}")]
+        //[Route("{id?}")]
+        public ViewResult Details(int? id)
         {
-            if (id < 1 || id > 3)
-            {
-                id = 1;
-            }
+            // used the ?? null cohalescing operator
+            //if (id < 1 || id > 3)
+            //{
+            //    id = 1;
+            //}
             HomeDetailsViewModel homeDetailsViewModel = new HomeDetailsViewModel()
             {
-                Employee = _employeeRepository.GetEmployee(id),
+                Employee = _employeeRepository.GetEmployee(id??1),
                 PageTitle = "Employee Details vm"
             };
             Employee model = _employeeRepository.GetEmployee(1);
