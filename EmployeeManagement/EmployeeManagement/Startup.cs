@@ -17,7 +17,6 @@ namespace EmployeeManagement
     public class Startup
     {
         private IConfiguration _config;
-
         public Startup(IConfiguration config)
         {
             _config = config;
@@ -31,6 +30,7 @@ namespace EmployeeManagement
             // services.AddMvcCore();  // is contained by AddMvc; this provides less options, the core ones - Json Formatter for example is not added 
 
             services.AddSingleton<IEmployeeRepository, MockEmployeeRepository>();  // when someone asks for IEmployee - create an instance of , Mock and inject
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -104,6 +104,7 @@ namespace EmployeeManagement
             //app.UseFileServer();
             app.UseStaticFiles();
 
+
             #region MVC Core 2.2 way
             // MVC middleware - big oof from Core 2.2 - https://stackoverflow.com/questions/57684093/using-usemvc-to-configure-mvc-is-not-supported-while-using-endpoint-routing
             //app.UseMvcWithDefaultRoute();
@@ -114,7 +115,7 @@ namespace EmployeeManagement
             app.UseRouting();
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapControllerRoute("default", "{controller=Home}/{action=Index}");
+                endpoints.MapControllerRoute("default", "{controller=Home}/{action=Index}/{id?}");
             });
             #endregion
 
@@ -122,7 +123,7 @@ namespace EmployeeManagement
             app.Run(async (context) =>
             {
                 // throw new Exception("Some error processing the request."); // used to prove cutom dev page config
-                await context.Response.WriteAsync("Hello Wrld");
+                await context.Response.WriteAsync("Last middleware Hello Wrld");
             });
 
             #region newASP.NETCore3.1defaultConfig

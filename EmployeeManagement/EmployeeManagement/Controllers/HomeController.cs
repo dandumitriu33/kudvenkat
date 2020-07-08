@@ -22,11 +22,15 @@ namespace EmployeeManagement.Controllers
             return View(model);
         }
 
-        public ViewResult Details()
+        public ViewResult Details(int id)
         {
+            if (id < 1 || id > 3)
+            {
+                id = 1;
+            }
             HomeDetailsViewModel homeDetailsViewModel = new HomeDetailsViewModel()
             {
-                Employee = _employeeRepository.GetEmployee(1),
+                Employee = _employeeRepository.GetEmployee(id),
                 PageTitle = "Employee Details vm"
             };
             Employee model = _employeeRepository.GetEmployee(1);
