@@ -43,6 +43,13 @@ namespace EmployeeManagement.Controllers
         //[Route("{id?}")]
         public ViewResult Details(int? id)
         {
+            Employee employee = _employeeRepository.GetEmployee(id.Value);
+            if (employee == null)
+            {
+                Response.StatusCode = 404;
+                return View("EmployeeNotFound", id.Value);
+            }
+
             // used the ?? null cohalescing operator
             //if (id < 1 || id > 3)
             //{
@@ -50,7 +57,7 @@ namespace EmployeeManagement.Controllers
             //}
             HomeDetailsViewModel homeDetailsViewModel = new HomeDetailsViewModel()
             {
-                Employee = _employeeRepository.GetEmployee(id??1),
+                Employee = employee,
                 PageTitle = "Employee Details vm"
             };
             Employee model = _employeeRepository.GetEmployee(1);
