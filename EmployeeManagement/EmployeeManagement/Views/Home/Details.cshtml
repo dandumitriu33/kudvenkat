@@ -6,6 +6,7 @@
 @{
     //Layout = "~/Views/Shared/_Layout.cshtml";
     //ViewBag.Title = "Employee Details";
+    var photoPath = "~/Images/" + (Model.Employee.PhotoPath ?? "noimage.jpg");
 }
 
 
@@ -60,7 +61,7 @@
             </div>
 
             <div class="card-body text-center">
-                <img class="card-img-top" src="~/images/noimage.jpg" />
+                <img class="card-img-top" src="@photoPath" asp-append-version="true" />
 
                 <h4>Employee ID: @Model.Employee.Id</h4>
                 <h4>Email: @Model.Employee.Email</h4>
