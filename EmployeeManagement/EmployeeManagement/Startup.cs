@@ -11,6 +11,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Microsoft.EntityFrameworkCore;
 
 namespace EmployeeManagement
 {
@@ -25,6 +26,9 @@ namespace EmployeeManagement
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddDbContextPool<AppDbContext>(
+                options => options.UseSqlServer(_config.GetConnectionString("EmployeeDBConnection")));
+
             //services.AddMvc(options => options.EnableEndpointRouting = false);  // for ASP.NET Core 3.1 if we use app.UseMvcWithDefaultRoute(); (the old 2.2 way)
             services.AddMvc();  // for ASP.NET Core 3.1 if we use app.UseEndpoints (the new way)
             // services.AddMvcCore();  // is contained by AddMvc; this provides less options, the core ones - Json Formatter for example is not added 
