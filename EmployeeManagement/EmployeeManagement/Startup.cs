@@ -33,7 +33,11 @@ namespace EmployeeManagement
             services.AddMvc();  // for ASP.NET Core 3.1 if we use app.UseEndpoints (the new way)
             // services.AddMvcCore();  // is contained by AddMvc; this provides less options, the core ones - Json Formatter for example is not added 
 
-            services.AddSingleton<IEmployeeRepository, MockEmployeeRepository>();  // when someone asks for IEmployee - create an instance of , Mock and inject
+            // This line uses the Mock repository, the one in memory
+            //services.AddSingleton<IEmployeeRepository, MockEmployeeRepository>();  // when someone asks for IEmployee - create an instance of , Mock and inject
+            
+            // After configuring the DB connection, this line will simply change repository and in just one change switch to DB
+            services.AddScoped<IEmployeeRepository, SQLEmployeeRepository>();  // when someone asks for IEmployee - create an instance of , Mock and inject
 
         }
 
