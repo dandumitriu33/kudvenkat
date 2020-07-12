@@ -63,6 +63,11 @@ namespace EmployeeManagement
             {
                 app.UseDeveloperExceptionPage();
             }
+            else
+            {
+                app.UseStatusCodePagesWithRedirects("/Error/{0}");
+                //app.UseStatusCodePagesWithReExecute("/Error/{0}");
+            }
             
             #region middlwareExample
             //app.Use(async (context, next) =>
@@ -128,11 +133,11 @@ namespace EmployeeManagement
             #endregion
 
 
-            app.Run(async (context) =>
-            {
-                // throw new Exception("Some error processing the request."); // used to prove cutom dev page config
-                await context.Response.WriteAsync("Last middleware Hello Wrld aka no mid caught it 404");
-            });
+            //app.Run(async (context) =>
+            //{
+            //    // throw new Exception("Some error processing the request."); // used to prove cutom dev page config
+            //    await context.Response.WriteAsync("Last middleware Hello Wrld aka no mid caught it 404");
+            //});
 
             #region newASP.NETCore3.1defaultConfig
             //app.UseRouting();
