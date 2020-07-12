@@ -65,6 +65,7 @@ namespace EmployeeManagement
             }
             else
             {
+                app.UseExceptionHandler("/Error");
                 //app.UseStatusCodePagesWithRedirects("/Error/{0}"); // redirects/re-request at 302 again through middleware and error Redirecfts catches it but returns a http 200 OK response, not proper
                 app.UseStatusCodePagesWithReExecute("/Error/{0}");  // re-executes the pipeline and http error is 404 and url is the same - passes to MVC and from there routing takes place in middleware
             }
